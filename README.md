@@ -1,2 +1,64 @@
-# UpgradeDeb6to10
-How to upgrade a Debian 6 box to Debian 10
+# How to upgrade a Debian 6 box to Debian 10
+
+I had a bunch of appliances where I had to do this.  Here are my notes.  This is a little hasty, so it may run into random issues.  I really want to automate this with an ansible script at some point, but there are still too many "an update to this conf file has been made, do you wish to keep yours or update the maintainner's version" and the swap from GRUB 1.99 to the new 2.00 which... IMHO... is not an improvment. ***This may hose your system,*** especially if there are pre-compiled binaries or commands that won't work with Linux over 2.4 or 2.6.  This is very risky.  In my case, it worked great, since I have i386 boxes.  But if you have weird Marvel kernels, or device drivers that only work for one kernel type, you may have an unbootable system very suddenly with no way to back out.  In my case, these appliances would either have to be updated, or fail compliance, so if they were hosed, it wouldn't matter.  In the end, they worked really well.
+
+### The Debian 6-7 repositories went byebye 
+
+... and in the future, like 8, 9, 10, etc... depending on when you read this. First, I had to replace the debian repos with ftp archive:
+
+Add the following in your sources.list, and comment everything else out:
+
+    deb http://archive.debian.org/debian squeeze main
+    deb http://archive.debian.org/debian squeeze-lts main
+
+The second line will fail with an "expired" type message, so you also need to add the following 
+in /etc/apt/apt.conf (and create it if it doesn't already exist):
+
+    Acquire::Check-Valid-Until false;
+
+### Make an update script
+
+Here are the names:
+
+    Debian 10 Buster - current as of this document
+    Debian 9 Stretch - old stable as of this document
+    Debian 8 Jessie - about to expire as of this document
+    Debian 7 Wheezy
+    Debian 6 Squeeze
+
+I then made this script 
+
+    #!/bin/bash
+    old_and_busted="squeeze"
+    new_hotness="wheezy"
+
+    sudo apt-get clean
+    sudo apt-get autoremove -y
+    sudo apt-get update 
+    sudo apt-get upgrade -y 
+
+    version=$(cat /etc/debian_version)
+    echo -e "\e[37;1mDEBIAN $version \e[0m\n"
+
+    sudo sed -i 's/$old_and_busted/$new_hotness/g' /etc/apt/sources.list
+
+    sudo apt-get update
+    sudo apt-get upgrade -y
+    sudo apt-get dist-upgrade -y
+
+    echo -n "----------------\n :: NOW REBOOT :: \n----------------\n"
+
+If you run weird expired repostiories, you can always remove them with this:
+
+    sudo aptitude search “~o”
+
+# Recommendations for upgrading from jessie LTS to stretch LTS
+
+That script started to get weird one-off errors between 8 and 9, mostly because the archives don't work for current builds.
+
+    deb http://deb.debian.org/debian/ stretch main contrib non-free
+    deb-src http://deb.debian.org/debian/ stretch main contrib non-free
+
+    deb http://security.debian.org/ stretch/updates main contrib non-free
+    deb-src http://security.debian.org/ stretch/updates main contrib non-free
+
