@@ -21,9 +21,10 @@ You also have to check anything in /etc/apt/sources.list.d/ and /etc/apt/conf.d/
 
 Here are the names:
 
+    Debian 11 Bullseye - testing as of this document
     Debian 10 Buster - current as of this document
     Debian 9 Stretch - old stable as of this document
-    Debian 8 Jessie - about to expire as of this document
+    Debian 8 Jessie - "old old stable" about to expire as of this document
     Debian 7 Wheezy
     Debian 6 Squeeze
 
