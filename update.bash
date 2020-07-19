@@ -22,6 +22,19 @@ fi
 OLD_AND_BUSTED="squeeze"
 NEW_HOTNESS="wheezy"
 
+if [ "$OLD_AND_BUSTED" == "squeeze" ]
+then
+  cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
+  rm -f /etc/apt/sources.list
+  echo "
+  deb http://archive.debian.org/debian squeeze main
+  deb http://archive.debian.org/debian squeeze-lts main
+  " > /etc/apt/sources.list
+  echo "Acquire::Check-Valid-Until false;" >> /etc/apt/apt.conf
+elif [ "$OLD_AND_BUSTED" == "jesse" ]
+  sed -i "s/archive/ftp" /etc/apt/sources.list
+fi 
+
 # Handy space savers
 apt-get clean
 apt-get autoremove -y
