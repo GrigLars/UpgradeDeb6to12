@@ -19,21 +19,36 @@ fi
 # Swap which with which.  This seems to break down between 8 and 9, when 
 #  you have to change the conf from "archive" to the current ones
 
-OLD_AND_BUSTED="squeeze"
-NEW_HOTNESS="wheezy"
+OLD_AND_BUSTED=$(lsb_release -cs)
+# OLD_AND_BUSTED="squeeze"
+# NEW_HOTNESS="wheezy"
 
-if [ "$OLD_AND_BUSTED" == "squeeze" ]
-then
-  cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
-  rm -f /etc/apt/sources.list
-  echo "
-  deb http://archive.debian.org/debian squeeze main
-  deb http://archive.debian.org/debian squeeze-lts main
-  " > /etc/apt/sources.list
-  echo "Acquire::Check-Valid-Until false;" >> /etc/apt/apt.conf
-elif [ "$OLD_AND_BUSTED" == "jesse" ]
-  sed -i "s/archive/ftp" /etc/apt/sources.list
-fi 
+case "${OLD_AND_BUSTED} in 
+  squeeze) 
+    NEW_HOTNESS="wheezy" 
+    cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
+    rm -f /etc/apt/sources.list
+    echo "
+    deb http://archive.debian.org/debian squeeze main
+    deb http://archive.debian.org/debian squeeze-lts main
+    " > /etc/apt/sources.list
+    echo "Acquire::Check-Valid-Until false;" >> /etc/apt/apt.conf
+  ;;
+  wheezy) 
+    NEW_HOTNESS="jessie" 
+    sed -i "s/archive/ftp" /etc/apt/sources.list
+  ;;
+  jessie) 
+    NEW_HOTNESS="stretch" 
+  ;;
+  stetch) 
+    NEW_HOTNESS="buster" 
+  ;;
+  *)
+    "I could not determine which Debian you were using from lsb_release or we're alreadt on Debian 10 Buster"
+    exit 1
+   ;;
+esac
 
 # Handy space savers
 apt-get clean
