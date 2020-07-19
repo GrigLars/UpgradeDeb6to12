@@ -23,6 +23,14 @@ OLD_AND_BUSTED=$(lsb_release -cs)
 # OLD_AND_BUSTED="squeeze"
 # NEW_HOTNESS="wheezy"
 
+# Handy space savers
+apt-get clean
+apt-get autoremove -y
+    
+# One last update
+apt-get update 
+apt-get upgrade -y --force-yes
+
 case "${OLD_AND_BUSTED}" in 
   squeeze) 
     NEW_HOTNESS="wheezy" 
@@ -34,7 +42,14 @@ case "${OLD_AND_BUSTED}" in
   ;;
   wheezy) 
     NEW_HOTNESS="jessie" 
-    sed -i "s/archive/ftp" /etc/apt/sources.list
+    cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
+    rm -f /etc/apt/sources.list
+    echo 'deb http://deb.debian.org/debian jessie main' > /etc/apt/sources.list
+    echo 'deb-src http://deb.debian.org/debian jessie main' >> /etc/apt/sources.list
+    echo 'deb http://deb.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list
+    echo 'deb-src http://deb.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list
+    echo 'deb http://deb.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
+    echo 'deb-src http://deb.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
   ;;
   jessie) 
     NEW_HOTNESS="stretch" 
@@ -47,14 +62,6 @@ case "${OLD_AND_BUSTED}" in
     exit 1
    ;;
 esac
-
-# Handy space savers
-apt-get clean
-apt-get autoremove -y
-    
-# One last update
-apt-get update 
-apt-get upgrade -y --force-yes
 
 DEB_VERSION=$(cat /etc/debian_version)
 echo -e "\e[37;1mDEBIAN ${DEB_VERSION} \e[0m\n"
