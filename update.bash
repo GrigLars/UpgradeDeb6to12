@@ -28,11 +28,9 @@ case "${OLD_AND_BUSTED} in
     NEW_HOTNESS="wheezy" 
     cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
     rm -f /etc/apt/sources.list
-    echo "
-    deb http://archive.debian.org/debian squeeze main
-    deb http://archive.debian.org/debian squeeze-lts main
-    " > /etc/apt/sources.list
-    echo "Acquire::Check-Valid-Until false;" >> /etc/apt/apt.conf
+    echo 'deb http://archive.debian.org/debian squeeze main' > /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian squeeze-lts main' >> /etc/apt/sources.list
+    echo 'Acquire::Check-Valid-Until false;' >> /etc/apt/apt.conf
   ;;
   wheezy) 
     NEW_HOTNESS="jessie" 
@@ -45,7 +43,7 @@ case "${OLD_AND_BUSTED} in
     NEW_HOTNESS="buster" 
   ;;
   *)
-    "I could not determine which Debian you were using from lsb_release or we're already on Debian 10 Buster"
+    echo "I could not determine which Debian you were using from lsb_release or it is already on Debian 10 Buster"
     exit 1
    ;;
 esac
