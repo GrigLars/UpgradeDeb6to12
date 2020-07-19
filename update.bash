@@ -23,7 +23,7 @@ OLD_AND_BUSTED=$(lsb_release -cs)
 # OLD_AND_BUSTED="squeeze"
 # NEW_HOTNESS="wheezy"
 
-case "${OLD_AND_BUSTED} in 
+case "${OLD_AND_BUSTED}" in 
   squeeze) 
     NEW_HOTNESS="wheezy" 
     cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
