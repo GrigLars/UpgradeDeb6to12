@@ -45,7 +45,7 @@ case "${OLD_AND_BUSTED} in
     NEW_HOTNESS="buster" 
   ;;
   *)
-    "I could not determine which Debian you were using from lsb_release or we're alreadt on Debian 10 Buster"
+    "I could not determine which Debian you were using from lsb_release or we're already on Debian 10 Buster"
     exit 1
    ;;
 esac
