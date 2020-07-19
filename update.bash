@@ -32,7 +32,7 @@
     sudo sed -i 's/$old_and_busted/$new_hotness/g' /etc/apt/sources.list
 
     sudo apt-get update
-    sudo apt-get upgrade -y
-    sudo apt-get dist-upgrade -y
+    sudo apt-get upgrade -y --force-yes
+    sudo apt-get dist-upgrade -y 
 
     echo -e "----------------\n :: NOW REBOOT :: \n----------------\n"
