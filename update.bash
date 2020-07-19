@@ -54,7 +54,7 @@ case "${OLD_AND_BUSTED}" in
   jessie) 
     NEW_HOTNESS="stretch" 
   ;;
-  stetch) 
+  stretch) 
     NEW_HOTNESS="buster" 
   ;;
   *)
