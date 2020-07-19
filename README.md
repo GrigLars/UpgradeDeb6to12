@@ -28,32 +28,9 @@ Here are the names:
     Debian 7 Wheezy
     Debian 6 Squeeze
 
-I then made this script where I changed the build names after each reboot.
+I then made this script where I changed the build names after each reboot.  It's in this repo as "update.bash"
 
-    #!/bin/bash
-    old_and_busted="squeeze"
-    new_hotness="wheezy"
-
-    # Handy space savers
-    sudo apt-get clean
-    sudo apt-get autoremove -y
-    
-    # One last update
-    sudo apt-get update 
-    sudo apt-get upgrade -y 
-
-    version=$(cat /etc/debian_version)
-    echo -e "\e[37;1mDEBIAN $version \e[0m\n"
-
-    sudo sed -i 's/$old_and_busted/$new_hotness/g' /etc/apt/sources.list
-
-    sudo apt-get update
-    sudo apt-get upgrade -y
-    sudo apt-get dist-upgrade -y
-
-    echo -n "----------------\n :: NOW REBOOT :: \n----------------\n"
-
-If you run weird expired repostiories, you can always remove them with this:
+If you run weird expired repositories, you can always remove them with this:
 
     sudo aptitude search “~o”
 
