@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # THIS ONLY WORKS IN GENERIC SETUPS AND MAY BREAK THINGS, POSSIBLY IRREVOKABLY, FOR
 #  UNUSAL SETUPS, KERNEL COMPILATIONS, DRIVERS, AND SO ON - USE AT OWN RISK!!!!
@@ -18,6 +18,7 @@ fi
 
 # Swap which with which.  This seems to break down between 8 and 9, when 
 #  you have to change the conf from "archive" to the current ones
+# More at https://wiki.debian.org/DebianReleases
 
 OLD_AND_BUSTED=$(lsb_release -cs)
 # OLD_AND_BUSTED="squeeze"
