@@ -1,8 +1,8 @@
-# How to upgrade a Debian 6 box to Debian 10
+# How to upgrade a Debian 6 box to Debian 12
 
 I had a bunch of appliances where I had to do this.  Here are my notes.  This is a little hasty, so it may run into random issues.  I really want to automate this with an ansible script at some point, but there are still too many "an update to this conf file has been made, do you wish to keep yours or update the maintainer's version" and the swap from GRUB 1.99 to the new 2.00 which... IMHO... is not an improvment. ***This may hose your system,*** especially if there are pre-compiled binaries or commands that won't work with Linux over 2.4 or 2.6.  This is very risky, *and you better know what you're doing here!*  In my case, it worked great, since I have i386 boxes.  But if you have weird Marvel kernels, old arm kernels, or device drivers that only work for one kernel type, you may have an unbootable system very suddenly with no way to back out.  In my case, these appliances had to be updated, or fail compliance, so if they were hosed, it wouldn't matter.  In the end, they worked really well for i386 "beige box routers."  
 
-### The Debian 6-7 repositories went byebye 
+### Older Debian repositories went byebye 
 
 ... and in the future, like 8, 9, 10, etc... depending on when you read this. First, I had to replace the debian repos with ftp archive:
 
@@ -21,10 +21,11 @@ You also have to check anything in /etc/apt/sources.list.d/ and /etc/apt/conf.d/
 
 Here are the names:
 
-    Debian 11 Bullseye - testing as of this document
-    Debian 10 Buster - current as of this document
-    Debian 9 Stretch - old stable as of this document
-    Debian 8 Jessie - "old old stable" about to expire as of this document
+    Debian 12 Bookworm - current as of this document
+    Debian 11 Bullseye - old stable as of this document
+    Debian 10 Buster - "old old stable" about to expire as of this document
+    Debian 9 Stretch 
+    Debian 8 Jessie 
     Debian 7 Wheezy
     Debian 6 Squeeze
 
