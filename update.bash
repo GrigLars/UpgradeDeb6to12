@@ -22,6 +22,10 @@ fi
 # More at https://wiki.debian.org/DebianReleases
 
 OLD_AND_BUSTED=$(lsb_release -cs)
+if [ -z $OLD_AND_BUSTED ]; then
+	apt-get install lsb-release -y --force-yes
+	OLD_AND_BUSTED=$(lsb_release -cs)
+fi
 # OLD_AND_BUSTED="squeeze"
 # NEW_HOTNESS="wheezy"
 
