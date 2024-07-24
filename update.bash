@@ -35,7 +35,7 @@ apt-get autoremove -y
     
 # One last update
 apt-get update 
-apt-get upgrade -y --force-yes
+apt-get upgrade -y --force-yes --allow-unathenticated
 
 case "${OLD_AND_BUSTED}" in 
   squeeze) 
