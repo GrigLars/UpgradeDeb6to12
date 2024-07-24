@@ -11,10 +11,11 @@ fi
 ## Handy guide
 # Debian 6 squeeze
 # Debian 7 wheezy
-# Debian 8 jessie - "old old stable" about to expire as of this document
-# Debian 9 stretch - old stable as of this document
-# Debian 10 buster - current as of this document
-# Debian 11 bullseye - testing as of this document
+# Debian 8 jessi
+# Debian 9 stretch
+# Debian 10 bustere  - "old old stable" about to expire as of this document 
+# Debian 11 bullseye - old stable as of this document
+# Debian 12 bookworm - current as of this document 
 
 # Swap which with which.  This seems to break down between 8 and 9, when 
 #  you have to change the conf from "archive" to the current ones
@@ -58,8 +59,11 @@ case "${OLD_AND_BUSTED}" in
   stretch) 
     NEW_HOTNESS="buster" 
   ;;
+  buster) 
+    NEW_HOTNESS="bookworm" 
+  ;;
   *)
-    echo "I could not determine which Debian you were using from lsb_release or it is already on Debian 10 Buster"
+    echo "I could not determine which Debian you were using from lsb_release or it is already on Debian 12 bookworm"
     exit 1
    ;;
 esac
