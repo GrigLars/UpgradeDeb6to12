@@ -50,15 +50,22 @@ case "${OLD_AND_BUSTED}" in
     NEW_HOTNESS="jessie" 
     cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
     rm -f /etc/apt/sources.list
-    echo 'deb http://deb.debian.org/debian jessie main' > /etc/apt/sources.list
-    echo 'deb-src http://deb.debian.org/debian jessie main' >> /etc/apt/sources.list
-    echo 'deb http://deb.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list
-    echo 'deb-src http://deb.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list
-    echo 'deb http://deb.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
-    echo 'deb-src http://deb.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian jessie main' > /etc/apt/sources.list
+    echo 'deb-src http://archive.debian.org/debian jessie main' >> /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list
+    echo 'deb-src http://archive.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
+    echo 'deb-src http://archive.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
   ;;
   jessie) 
     NEW_HOTNESS="stretch" 
+    cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
+    rm -f /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian stretch main' > /etc/apt/sources.list
+    echo 'deb-src http://archive.debian.org/debian stretch main' >> /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian-security/ stretch/updates main' >> /etc/apt/sources.list
+    echo 'deb-src http://archive.debian.org/debian-security/ stretch/updates main' >> /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian stretch-updates main' >> /etc/apt/sources.list
   ;;
   stretch) 
     NEW_HOTNESS="buster" 
