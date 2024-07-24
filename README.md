@@ -35,7 +35,7 @@ If you run weird expired repositories, you can always remove them with this:
 
     sudo aptitude search “~o”
 
-# Recommendations for upgrading from jessie LTS to stretch LTS
+# Recommendations for upgrading from "old old stable" on up.
 
 That script started to get weird one-off errors between 8 and 9, and that's because the archives don't work for current builds.  Comment out everything again, and then add these two lines:
 
