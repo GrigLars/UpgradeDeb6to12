@@ -81,8 +81,17 @@ case "${OLD_AND_BUSTED}" in
     echo 'deb-src http://archive.debian.org/debian-security/ buster/updates main' >> /etc/apt/sources.list
     echo 'deb http://archive.debian.org/debian buster-updates main' >> /etc/apt/sources.list
   ;;
-  buster) 
-    NEW_HOTNESS="bookworm" 
+  buster)
+    # Debian 10 => 11
+    NEW_HOTNESS="bullseye"
+    sed -i "s/${OLD_AND_BUSTED}/${NEW_HOTNESS}/g" /etc/apt/sources.list
+    sed -i "s/archive/deb/g" /etc/apt/sources.list/etc/apt/sources.list
+  ;;
+  bullseye)
+    # Debian 11 => 12
+    NEW_HOTNESS="bookworm"
+    sed -i "s/${OLD_AND_BUSTED}/${NEW_HOTNESS}/g" /etc/apt/sources.list
+    sed -i "s/archive/deb/g" /etc/apt/sources.list/etc/apt/sources.list
   ;;
   *)
     echo "I could not determine which Debian you were using from lsb_release or it is already on Debian 12 bookworm"
@@ -93,7 +102,7 @@ esac
 DEB_VERSION=$(cat /etc/debian_version)
 echo -e "\e[37;1mDEBIAN ${DEB_VERSION} \e[0m\n"
 
-sed -i "s/${OLD_AND_BUSTED}/${NEW_HOTNESS}/g" /etc/apt/sources.list
+sleep 3
 
 apt-get update
 apt-get upgrade -y --force-yes
