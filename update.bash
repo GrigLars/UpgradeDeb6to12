@@ -13,7 +13,7 @@ fi
 # Debian 7 wheezy
 # Debian 8 jessi
 # Debian 9 stretch
-# Debian 10 bustere  - "old old stable" about to expire as of this document 
+# Debian 10 buster   - "old old stable" about to expire as of this document 
 # Debian 11 bullseye - old stable as of this document
 # Debian 12 bookworm - current as of this document 
 
@@ -39,6 +39,7 @@ apt-get upgrade -y --force-yes --allow-unathenticated
 
 case "${OLD_AND_BUSTED}" in 
   squeeze) 
+    # Debian 6 => 7
     NEW_HOTNESS="wheezy" 
     cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
     rm -f /etc/apt/sources.list
@@ -47,6 +48,7 @@ case "${OLD_AND_BUSTED}" in
     echo 'Acquire::Check-Valid-Until false;' >> /etc/apt/apt.conf
   ;;
   wheezy) 
+    # Debian 7 => 8
     NEW_HOTNESS="jessie" 
     cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
     rm -f /etc/apt/sources.list
@@ -58,6 +60,7 @@ case "${OLD_AND_BUSTED}" in
     echo 'deb-src http://archive.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
   ;;
   jessie) 
+    # Debian 8 => 9
     NEW_HOTNESS="stretch" 
     cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
     rm -f /etc/apt/sources.list
@@ -68,6 +71,7 @@ case "${OLD_AND_BUSTED}" in
     echo 'deb http://archive.debian.org/debian stretch-updates main' >> /etc/apt/sources.list
   ;;
   stretch) 
+    # Debian 9 => 10
     NEW_HOTNESS="buster" 
     cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
     rm -f /etc/apt/sources.list
