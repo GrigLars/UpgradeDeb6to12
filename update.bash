@@ -69,6 +69,13 @@ case "${OLD_AND_BUSTED}" in
   ;;
   stretch) 
     NEW_HOTNESS="buster" 
+    cp -vp --backup=numbered /etc/apt/sources.list /etc/apt/sources.list.bak
+    rm -f /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian buster main' > /etc/apt/sources.list
+    echo 'deb-src http://archive.debian.org/debian buster main' >> /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian-security/ buster/updates main' >> /etc/apt/sources.list
+    echo 'deb-src http://archive.debian.org/debian-security/ buster/updates main' >> /etc/apt/sources.list
+    echo 'deb http://archive.debian.org/debian buster-updates main' >> /etc/apt/sources.list
   ;;
   buster) 
     NEW_HOTNESS="bookworm" 
