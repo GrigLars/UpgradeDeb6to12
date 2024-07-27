@@ -35,7 +35,7 @@ apt-get autoremove -y
     
 # One last update
 apt-get update 
-apt-get upgrade -y --force-yes --allow-unathenticated
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --force-yes --allow-unathenticated
 
 case "${OLD_AND_BUSTED}" in 
   squeeze) 
@@ -105,8 +105,8 @@ echo -e "\e[37;1mDEBIAN ${DEB_VERSION} \e[0m\n"
 sleep 3
 
 apt-get update
-apt-get upgrade -y --force-yes
-apt-get dist-upgrade -y --force-yes
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --force-yes
+DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y --force-yes
 
 echo -e "----------------\n :: NOW REBOOT :: \n----------------\n"
 exit 0;
