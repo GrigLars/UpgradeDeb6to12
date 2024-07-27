@@ -29,6 +29,10 @@ fi
 # OLD_AND_BUSTED="squeeze"
 # NEW_HOTNESS="wheezy"
 
+OUTPUT_FILE="./upgrade_from_${OLD_AND_BUSTED}.log"
+echo "After this line, all output goes to $OUTPUT_FILE"
+exec >> "$OUTPUT_FILE" 2>&1
+
 # Handy space savers
 apt-get clean
 apt-get autoremove -y
