@@ -13,24 +13,29 @@ fi
 # Debian 7 wheezy
 # Debian 8 jessi
 # Debian 9 stretch
-# Debian 10 buster   - "old old stable" about to expire as of this document 
-# Debian 11 bullseye - old stable as of this document
-# Debian 12 bookworm - current as of this document 
+# Debian 10 buster
+# Debian 11 bullseye - "old old stable" about to expire as of this document
+# Debian 12 bookworm - old stable as of this document
+# Debian 13 trixie - current as of this document
 
 # Swap which with which.  This seems to break down between 8 and 9, when 
 #  you have to change the conf from "archive" to the current ones
 # More at https://wiki.debian.org/DebianReleases
 
-OLD_AND_BUSTED=$(lsb_release -cs)
-if [ -z $OLD_AND_BUSTED ]; then
-	apt-get install lsb-release -y --force-yes
-	OLD_AND_BUSTED=$(lsb_release -cs)
-fi
+. /etc/os-release
+OLD_AND_BUSTED="$VERSION_CODENAME"
+
+# OLD_AND_BUSTED=$(lsb_release -cs)
+# if [ -z "$OLD_AND_BUSTED" ]; then
+# 	apt-get install lsb-release -y --force-yes
+# 	OLD_AND_BUSTED=$(lsb_release -cs)
+# fi
 # OLD_AND_BUSTED="squeeze"
 # NEW_HOTNESS="wheezy"
 
 OUTPUT_FILE="./upgrade_from_${OLD_AND_BUSTED}.log"
-echo "After this line, all output goes to $OUTPUT_FILE"
+echo "After this, all output goes to $OUTPUT_FILE"
+echo "Do a tail -F $OUTPUT_FILE in another session."
 exec >> "$OUTPUT_FILE" 2>&1
 
 # Handy space savers
@@ -89,7 +94,7 @@ case "${OLD_AND_BUSTED}" in
     # Debian 10 => 11
     NEW_HOTNESS="bullseye"
     sed -i "s/${OLD_AND_BUSTED}/${NEW_HOTNESS}/g" /etc/apt/sources.list
-    sed -i "s/archive/deb/g" /etc/apt/sources.list
+    # sed -i "s/archive/deb/g" /etc/apt/sources.list
   ;;
   bullseye)
     # Debian 11 => 12
@@ -97,8 +102,14 @@ case "${OLD_AND_BUSTED}" in
     sed -i "s/${OLD_AND_BUSTED}/${NEW_HOTNESS}/g" /etc/apt/sources.list
     sed -i "s/archive/deb/g" /etc/apt/sources.list
   ;;
+  bookworm)
+    # Debian 12 => 13
+    NEW_HOTNESS="trixie"
+    sed -i "s/${OLD_AND_BUSTED}/${NEW_HOTNESS}/g" /etc/apt/sources.list
+    sed -i "s/archive/deb/g" /etc/apt/sources.list
+  ;;
   *)
-    echo "I could not determine which Debian you were using from lsb_release or it is already on Debian 12 bookworm"
+    echo "I could not determine which Debian you were using from /etc/os-release or it is already on Debian 13 Trixie"
     exit 1
    ;;
 esac
